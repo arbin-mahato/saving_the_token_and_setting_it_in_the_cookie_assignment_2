@@ -1,13 +1,15 @@
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const SECRET_KEY = "your_secret_key";
 
-const token = "your_generated_token_here";
+// Read token from file
+const token = fs.readFileSync("token.txt", "utf8");
 
 const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-    console.log("Decoded Payload:", decoded);
+    console.log("✅ Decoded Payload:", decoded);
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
       console.log("❌ Token has expired!");
@@ -18,5 +20,4 @@ const verifyToken = (token) => {
 };
 
 verifyToken(token);
-
 console.log("Received Token:", token);

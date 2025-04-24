@@ -1,18 +1,18 @@
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
-// Define a payload (information you want to include in the token)
 const payload = {
   username: "testUser",
   role: "admin",
 };
 
-// Define your JWT secret key (keep this secret!)
 const SECRET_KEY = "your_secret_key";
+const expiresIn = "1h";
 
-// Set the token's expiration time (in seconds)
-const expiresIn = "1h"; // Token will expire in 1 hour
-
-// Generate JWT with an expiration time
 const token = jwt.sign(payload, SECRET_KEY, { expiresIn });
 
 console.log("Generated Token:", token);
+
+// Save to file
+fs.writeFileSync("token.txt", token);
+console.log("Token saved to token.txt");
